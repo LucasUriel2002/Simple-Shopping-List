@@ -52,6 +52,7 @@ button {
     color: var(--dark_blue_color);
     transition: transform 0.8 ease-in-out;
     transition-duration: 0.1s;
+    cursor: pointer;
 }
 
 button:active {
