@@ -17,6 +17,9 @@ let editID = "";
 form.addEventListener("submit", addItem);
 // clear items
 clearBtn.addEventListener("click", clearItems);
+// load items
+window.addEventListener("DOMContentLoaded", setupItems);
+
 // ---- FUNCTIONS ----
 function addItem(e) {
   e.preventDefault();
@@ -25,32 +28,7 @@ function addItem(e) {
 
   //better way to do!
   if (value && !editFlag) {
-    const element = document.createElement("article");
-    // add class
-    element.classList.add("shopList-item");
-    // add Id
-    const attr = document.createAttribute("data-id");
-    attr.value = id;
-    element.setAttributeNode(attr);
-    element.innerHTML = ` 
-            <p class="title">${value}</p>
-            <div class="btn-container">
-
-                <button type="button" class="edit-btn btns">
-                    <span class="material-symbols-outlined">edit_note</span>
-                </button>
-
-                <button type="button" class="delete-btn btns">
-                    <span class="material-symbols-outlined">delete_forever</span>
-                </button>
-
-            </div>`;
-    const deleteBtn = element.querySelector(".delete-btn");
-    const editBtn = element.querySelector(".edit-btn");
-    deleteBtn.addEventListener("click", deleteItem);
-    editBtn.addEventListener("click", editItem);
-    // append child
-    list.appendChild(element);
+    createListItem(id, value);
     // display alert
     displayAlert("item added to the list", "success");
     // show container
@@ -118,7 +96,7 @@ function clearItems() {
   container.classList.remove("show-container");
   displayAlert("Empty list", "danger");
   setBackToDefault();
-  // localStorage.removeItem('list');
+  localStorage.removeItem("list");
 }
 // delete function
 function deleteItem(e) {
@@ -164,6 +142,7 @@ function notClickable() {
     submitBtn.style.cursor = "default";
   }, 2500);
 }
+
 // ---- LOCAL STORAGE ----
 function addToLocalStorage(id, value) {
   const shopItem = {
@@ -171,12 +150,13 @@ function addToLocalStorage(id, value) {
     value: value,
   };
   let items = getLocalStorage();
-  console.log(items);
+  // console.log(items);
 
   items.push(shopItem);
   localStorage.setItem("list", JSON.stringify(items));
   // console.log("added to local storage");
 }
+
 function removeFromLocalStorage(id) {
   let items = getLocalStorage();
 
@@ -188,11 +168,27 @@ function removeFromLocalStorage(id) {
   localStorage.setItem("list", JSON.stringify(items));
 }
 
-function editLocalStorage(id, value) {}
+function editLocalStorage(id, value) {
+  let items = getLocalStorage();
+  items = items.map((item) => {
+    if (item.id === id) {
+      item.value = value;
+    }
+    return item;
+  });
+  localStorage.setItem("list", JSON.stringify(items));
+}
+
 function getLocalStorage() {
   return localStorage.getItem("list")
     ? JSON.parse(localStorage.getItem("list"))
     : [];
+
+  //    I didn't understand the logic at first, but that is very smart! Using the filter() function,
+  //  I can get every item that does not have the provided ID and overwrite the "list" with them, this will
+  //  "delete" the item that I chose from the "list".
+
+  // "condition ? result_in_this_if_true : else_result_in_this" <--- this is interesting!
 }
 // localStorage API
 // setItem
@@ -201,3 +197,41 @@ function getLocalStorage() {
 // save as string
 
 // ---- SETUP ITEMS ----
+function setupItems() {
+  let items = getLocalStorage();
+  if (items.length > 0) {
+    items.forEach((item) => {
+      createListItem(item.id, item.value);
+    });
+    container.classList.add("show-container");
+  }
+}
+
+function createListItem(id, value) {
+  const element = document.createElement("article");
+  // add class
+  element.classList.add("shopList-item");
+  // add Id
+  const attr = document.createAttribute("data-id");
+  attr.value = id;
+  element.setAttributeNode(attr);
+  element.innerHTML = ` 
+            <p class="title">${value}</p>
+            <div class="btn-container">
+
+                <button type="button" class="edit-btn btns">
+                    <span class="material-symbols-outlined">edit_note</span>
+                </button>
+
+                <button type="button" class="delete-btn btns">
+                    <span class="material-symbols-outlined">delete_forever</span>
+                </button>
+
+            </div>`;
+  const deleteBtn = element.querySelector(".delete-btn");
+  const editBtn = element.querySelector(".edit-btn");
+  deleteBtn.addEventListener("click", deleteItem);
+  editBtn.addEventListener("click", editItem);
+  // append child
+  list.appendChild(element);
+}
