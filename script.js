@@ -21,6 +21,15 @@ clearBtn.addEventListener("click", clearItems);
 window.addEventListener("DOMContentLoaded", setupItems);
 
 // ---- FUNCTIONS ----
+function randomPlaceHolder() {
+  let itemsArray = ["milk", "onion", "peper", "salt", "sugar", "cola"];
+
+  let placeHolder = itemsArray[Math.floor(Math.random() * itemsArray.length)];
+  return placeHolder;
+}
+
+setBackToDefault();
+
 function addItem(e) {
   e.preventDefault();
   const value = itemImput.value;
@@ -126,6 +135,8 @@ function editItem(e) {
 
 // set back to default
 function setBackToDefault() {
+  let placeHolder = randomPlaceHolder();
+  itemInput.placeholder = placeHolder;
   itemImput.value = "";
   editFlag = false;
   editID = "";
