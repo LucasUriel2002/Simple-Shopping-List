@@ -51,7 +51,7 @@ Que define um tempo para que o botão submit fique bloqueado para cliques.
 Muda aleatoriamente o placeholder do input toda vez que a página é recarregada ou toda vez que a função setBackToDefault() for chamada.
 </li>
 </ul>
-----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
 
 <h1>English</h1>
 <h2>Knowledge acquired from the Shopping List Project:</h2>
