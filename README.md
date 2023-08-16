@@ -1,8 +1,13 @@
-# Simple-Shopping-List
-This repository contain the code of a very simple Shopping List <br/> that i will use to learn some basic coding concepts!
-
+# Simple-Shopping-List-PT-BR-and-English
+This repository contain the code of a very simple Shopping List <br/> that i will use to learn some basic coding concepts!</br></br>
+PT-BR</br>
+O projeto foi criado com base na aula do John Smilga sobre JavaScript, apesar de seguir os passos tentei modificar o maximo o projeto e acressentar algumas coisas!
+Foi um otimo aprendizado e agora me sinto preparado para tentar projetos mais complexos com JavaScript!
+</br></br>
+English</br>
+The project was created based on John Smilga's class on JavaScript, despite following the steps I tried to modify the project as much as possible and add some extra things!
+It was a great learning experience and now I feel prepared to try more complex projects with JavaScript!
 <br/>
-PT-BR and English
 <br/>
 <h1>PT-BR</h1>
 <h2>Aprendizados do Projeto da Lista de Compras:</h2>
